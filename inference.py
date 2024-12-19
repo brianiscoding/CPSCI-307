@@ -1,8 +1,9 @@
 from torch.utils.data import DataLoader
 import torch
+import csv
 
 from model_src.model import Model
-from model_src.utils import CustomDataset, get_accuracy
+from utils.custom_dataset import CustomDataset
 
 
 import constants as c
@@ -19,15 +20,18 @@ if __name__ == "__main__":
     model.eval()
 
     with torch.no_grad():
-        print("item label prediction")
-        for data in test:
-            inputs, labels, items = data
+        with open(c.PATH_PREDICTIONS, "w+") as file:
+            writer = csv.writer(file)
+            writer.writerow(["item", "label", "prediction"])
 
-            labels = torch.argmax(labels, dim=1)
-            predictions = model(inputs)
-            predictions = torch.argmax(predictions, dim=1)
+            for data in test:
+                inputs, labels, items = data
 
-            for item, label, prediction in zip(items, labels, predictions):
-                label = c.CATEGORIES[label.item()]
-                prediction = c.CATEGORIES[prediction.item()]
-                print(item, label, prediction)
+                labels = torch.argmax(labels, dim=1)
+                predictions = model(inputs)
+                predictions = torch.argmax(predictions, dim=1)
+
+                for item, label, prediction in zip(items, labels, predictions):
+                    label = c.CATEGORIES[label.item()]
+                    prediction = c.CATEGORIES[prediction.item()]
+                    writer.writerow([item, label, prediction])

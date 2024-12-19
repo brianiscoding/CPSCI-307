@@ -20,5 +20,5 @@ EPOCHS = 8
 LEARNING_RATE = 0.001
 
 TEST_MODEL = "8.3505"
-
+PATH_PREDICTIONS = "predictions.csv"
 # https://pytorch.org/tutorials/beginner/introyt/trainingyt.html

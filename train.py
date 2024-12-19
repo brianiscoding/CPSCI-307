@@ -4,7 +4,7 @@ import torch.optim as optim
 import wandb
 
 from model_src.model import Model
-from model_src.utils import create_dataloaders, get_accuracy
+from utils.helper import create_dataloaders, get_accuracy
 
 import constants as c
 
