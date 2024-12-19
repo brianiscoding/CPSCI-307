@@ -3,3 +3,6 @@ checkpoints/
 data_src/
 model_src/
 wandb/
+
+.DS_Store
+.gitignore
